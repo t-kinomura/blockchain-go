@@ -42,7 +42,7 @@ func (b *Block) mining() {
 // canClearRule ルールをクリアできるかどうか.
 // ハッシュ値の最初の〇〇(ZeroCountで指定する)桁が"0"ならクリア.
 func (b *Block) canClearRule(hash []byte) bool {
-	return hex.EncodeToString(hash)[0:ZeroCount] == strings.Repeat("0", 4)
+	return hex.EncodeToString(hash)[0:ZeroCount] == strings.Repeat("0", ZeroCount)
 }
 
 // CalcHash Hash ブロックのハッシュを計算する.
