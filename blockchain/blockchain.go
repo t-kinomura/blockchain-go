@@ -2,7 +2,6 @@ package blockchain
 
 import (
 	"fmt"
-	"strings"
 )
 
 type Blockchain struct {
@@ -12,7 +11,7 @@ type Blockchain struct {
 
 func NewBlockchain() *Blockchain {
 	bc := &Blockchain{}
-	bc.CreateBlock() // Genesis Blockの作成
+	bc.CreateBlock() // 最初のBlockの作成
 
 	return bc
 }
@@ -37,7 +36,8 @@ func (bc *Blockchain) AddTransaction(transaction string) {
 
 func (bc *Blockchain) Print() {
 	for i, b := range bc.Block {
-		fmt.Printf("%s Block %d %s\n", strings.Repeat("=", 15), i, strings.Repeat("=", 15))
+		fmt.Printf("%d個目のブロック \n", i)
 		b.Print()
+		fmt.Println()
 	}
 }

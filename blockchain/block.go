@@ -5,7 +5,10 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"strings"
 )
+
+const ZeroCount = 4
 
 type Block struct {
 	PreviousHash [32]byte `json:"previous_hash"` // 直前のブロックから計算されるハッシュ値.
@@ -28,12 +31,18 @@ func (b *Block) mining() {
 	b.NONCE = 0
 	for {
 		hash := b.CalcHash()
-		if hex.EncodeToString(hash[:])[0:4] == "0000" {
+		if b.canClearRule(hash[:]) {
 			break
 		}
 
 		b.NONCE++
 	}
+}
+
+// canClearRule ルールをクリアできるかどうか.
+// ハッシュ値の最初の〇〇(ZeroCountで指定する)桁が"0"ならクリア.
+func (b *Block) canClearRule(hash []byte) bool {
+	return hex.EncodeToString(hash)[0:ZeroCount] == strings.Repeat("0", 4)
 }
 
 // CalcHash Hash ブロックのハッシュを計算する.
@@ -47,7 +56,7 @@ func (b *Block) CalcHash() [32]byte {
 }
 
 func (b *Block) Print() {
-	fmt.Printf("PreviousHash    %x\n", b.PreviousHash)
-	fmt.Printf("Transaction     %s\n", b.Transaction)
-	fmt.Printf("NANCE           %d\n", b.NONCE)
+	fmt.Printf("1つ前のブロックのハッシュ：         %x\n", b.PreviousHash)
+	fmt.Printf("このブロックのトランザクション：    %s\n", b.Transaction)
+	fmt.Printf("ナンス：                            %d\n", b.NONCE)
 }
