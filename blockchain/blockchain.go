@@ -1,4 +1,4 @@
-package main
+package blockchain
 
 import (
 	"fmt"
@@ -6,8 +6,8 @@ import (
 )
 
 type Blockchain struct {
-	transactionPool []string // トランザクションを一時的にプールするフィールド
-	block           []*Block
+	TransactionPool []string // トランザクションを一時的にプールするフィールド
+	Block           []*Block
 }
 
 func NewBlockchain() *Blockchain {
@@ -18,25 +18,25 @@ func NewBlockchain() *Blockchain {
 }
 
 func (bc *Blockchain) CreateBlock() {
-	if len(bc.block) == 0 {
+	if len(bc.Block) == 0 {
 		b := NewBlock([32]byte{}, nil)
-		bc.block = append(bc.block, b)
+		bc.Block = append(bc.Block, b)
 	} else {
-		previousHash := bc.block[len(bc.block)-1].CalcHash()
+		previousHash := bc.Block[len(bc.Block)-1].CalcHash()
 
-		b := NewBlock(previousHash, bc.transactionPool)
-		bc.block = append(bc.block, b)
+		b := NewBlock(previousHash, bc.TransactionPool)
+		bc.Block = append(bc.Block, b)
 	}
 
-	bc.transactionPool = nil
+	bc.TransactionPool = nil
 }
 
 func (bc *Blockchain) AddTransaction(transaction string) {
-	bc.transactionPool = append(bc.transactionPool, transaction)
+	bc.TransactionPool = append(bc.TransactionPool, transaction)
 }
 
 func (bc *Blockchain) Print() {
-	for i, b := range bc.block {
+	for i, b := range bc.Block {
 		fmt.Printf("%s Block %d %s\n", strings.Repeat("=", 15), i, strings.Repeat("=", 15))
 		b.Print()
 	}

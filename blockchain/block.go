@@ -1,4 +1,4 @@
-package main
+package blockchain
 
 import (
 	"crypto/sha256"
@@ -26,7 +26,6 @@ func NewBlock(previousHash [32]byte, transaction []string) *Block {
 // mining NANCEの値を求める.
 func (b *Block) mining() {
 	b.NONCE = 0
-	//var nance int64 = 0
 	for {
 		hash := b.CalcHash()
 		if hex.EncodeToString(hash[:])[0:4] == "0000" {

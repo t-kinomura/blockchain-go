@@ -1,7 +1,9 @@
 package main
 
+import "github.com/t-kinomura/blockchain-go/blockchain"
+
 func main() {
-	bc := NewBlockchain()
+	bc := blockchain.NewBlockchain()
 
 	bc.AddTransaction("transaction1")
 	bc.AddTransaction("transaction2")
