@@ -10,7 +10,7 @@ import (
 type Block struct {
 	PreviousHash [32]byte `json:"previous_hash"` // 直前のブロックから計算されるハッシュ値.
 	Transaction  []string `json:"transaction"`
-	NONCE        int64    `json:"nonce"`
+	NONCE        int      `json:"nonce"`
 }
 
 func NewBlock(previousHash [32]byte, transaction []string) *Block {
